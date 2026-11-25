@@ -1,0 +1,995 @@
+<!DOCTYPE html>
+<html lang="en" class="dark scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Abed Alrahman Badriah — CS Student &amp; C/C++ Developer</title>
+  <meta name="description" content="Personal portfolio of Abed Alrahman Badriah, 2nd-year Computer Science student at Jerusalem Multidisciplinary College (JMC) specializing in C/C++, OOP, and Software Development." />
+
+  <!-- Google Fonts: Inter & JetBrains Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet" />
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'system-ui', 'sans-serif'],
+            mono: ['JetBrains Mono', 'monospace'],
+          },
+          colors: {
+            brand: {
+              400: '#38bdf8',
+              500: '#0ea5e9',
+              600: '#0284c7',
+            }
+          }
+        }
+      }
+    };
+  </script>
+
+  <style>
+    /* Subtle developer grid background pattern */
+    .bg-grid-dark {
+      background-image: radial-gradient(rgba(148, 163, 184, 0.12) 1px, transparent 1px);
+      background-size: 24px 24px;
+    }
+    .bg-grid-light {
+      background-image: radial-gradient(rgba(15, 23, 42, 0.08) 1px, transparent 1px);
+      background-size: 24px 24px;
+    }
+    /* Custom scrollbar */
+    ::-webkit-scrollbar {
+      width: 8px;
+      height: 8px;
+    }
+    ::-webkit-scrollbar-track {
+      background: transparent;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: rgba(100, 116, 139, 0.4);
+      border-radius: 9999px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: rgba(100, 116, 139, 0.65);
+    }
+  </style>
+</head>
+<body class="bg-slate-50 text-slate-900 dark:bg-slate-950 dark:text-slate-100 font-sans antialiased transition-colors duration-200 selection:bg-sky-500/30 selection:text-sky-200">
+
+  <!-- Background Subtle Grid Layer -->
+  <div id="grid-bg" class="fixed inset-0 pointer-events-none bg-grid-dark z-0"></div>
+
+  <!-- Sticky Navigation Bar -->
+  <header class="sticky top-0 z-40 w-full backdrop-blur-md bg-white/80 dark:bg-slate-950/80 border-b border-slate-200 dark:border-slate-800/80">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+      <!-- Brand / Terminal Prompt -->
+      <a href="#about" class="flex items-center gap-2 font-mono text-sm sm:text-base font-bold tracking-tight text-slate-900 dark:text-white group">
+        <span class="inline-flex items-center justify-center w-8 h-8 rounded-lg bg-sky-500/10 border border-sky-500/30 text-sky-600 dark:text-sky-400 group-hover:bg-sky-500 group-hover:text-white transition-colors">
+          &gt;_
+        </span>
+        <span>abed<span class="text-sky-600 dark:text-sky-400">.dev</span></span>
+      </a>
+
+      <!-- Desktop Nav Links -->
+      <nav class="hidden md:flex items-center gap-7 text-sm font-medium text-slate-600 dark:text-slate-300">
+        <a href="#about" class="hover:text-sky-600 dark:hover:text-sky-400 transition-colors">About</a>
+        <a href="#projects" class="hover:text-sky-600 dark:hover:text-sky-400 transition-colors">Projects</a>
+        <a href="#skills-education" class="hover:text-sky-600 dark:hover:text-sky-400 transition-colors">Skills &amp; Education</a>
+        <a href="#contact" class="hover:text-sky-600 dark:hover:text-sky-400 transition-colors">Contact</a>
+      </nav>
+
+      <!-- Actions: Theme Toggle & Mobile Menu Button -->
+      <div class="flex items-center gap-2">
+        <button
+          id="theme-toggle"
+          type="button"
+          aria-label="Toggle Dark/Light Theme"
+          class="p-2.5 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-100/70 dark:bg-slate-900 text-slate-700 dark:text-slate-300 hover:border-sky-500/50 hover:text-sky-600 dark:hover:text-sky-400 transition-all"
+        >
+          <!-- Sun Icon (shown in dark mode) -->
+          <svg id="icon-sun" class="w-5 h-5 hidden dark:block" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <circle cx="12" cy="12" r="4"></circle>
+            <path d="M12 2v2m0 16v2M4.93 4.93l1.41 1.41m11.32 11.32 1.41 1.41M2 12h2m16 0h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"></path>
+          </svg>
+          <!-- Moon Icon (shown in light mode) -->
+          <svg id="icon-moon" class="w-5 h-5 block dark:hidden" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+          </svg>
+        </button>
+
+        <!-- Mobile Menu Button -->
+        <button
+          id="mobile-menu-btn"
+          type="button"
+          aria-label="Open Navigation Menu"
+          class="md:hidden p-2.5 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-100/70 dark:bg-slate-900 text-slate-700 dark:text-slate-300"
+        >
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16"></path>
+          </svg>
+        </button>
+      </div>
+    </div>
+
+    <!-- Mobile Dropdown Navigation -->
+    <div id="mobile-menu" class="hidden md:hidden border-t border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-950 px-4 py-3 space-y-2">
+      <a href="#about" class="mobile-nav-link block px-3 py-2 rounded-lg text-sm font-medium text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-900">About</a>
+      <a href="#projects" class="mobile-nav-link block px-3 py-2 rounded-lg text-sm font-medium text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-900">Projects</a>
+      <a href="#skills-education" class="mobile-nav-link block px-3 py-2 rounded-lg text-sm font-medium text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-900">Skills &amp; Education</a>
+      <a href="#contact" class="mobile-nav-link block px-3 py-2 rounded-lg text-sm font-medium text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-900">Contact</a>
+    </div>
+  </header>
+
+  <main class="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+
+    <!-- ==================== 1. HERO SECTION ==================== -->
+    <section id="about" class="pt-14 pb-16 sm:pt-20 sm:pb-24 border-b border-slate-200/80 dark:border-slate-800/80">
+      <div class="max-w-3xl">
+        <!-- Status / Location Badge -->
+        <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs sm:text-sm font-mono font-medium bg-sky-500/10 text-sky-700 dark:text-sky-300 border border-sky-500/25 mb-6">
+          <span class="relative flex h-2.5 w-2.5">
+            <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+            <span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-500"></span>
+          </span>
+          <span>Jerusalem, Israel &bull; Open to Student Positions (משרת סטודנט)</span>
+        </div>
+
+        <!-- Main Headline -->
+        <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-slate-900 dark:text-white leading-[1.12]">
+          Abed Alrahman Badriah
+        </h1>
+
+        <!-- Subheadline -->
+        <p class="mt-4 text-lg sm:text-xl font-semibold text-sky-600 dark:text-sky-400 font-mono">
+          2nd-Year Computer Science Student at JMC &nbsp;|&nbsp; C/C++ Systems &amp; Software Developer
+        </p>
+
+        <!-- Concise Bio -->
+        <p class="mt-5 text-base sm:text-lg text-slate-600 dark:text-slate-300 leading-relaxed">
+          Computer Science undergraduate at <strong class="text-slate-900 dark:text-white font-semibold">Jerusalem Multidisciplinary College (JMC)</strong> with 3+ years of foundational engineering and CS coursework across JMC and Azrieli College of Engineering. Passionate about building clean, reliable software in <strong class="text-slate-900 dark:text-white font-semibold">C and C++</strong>, with hands-on experience in Object-Oriented Design, Data Structures, Multithreading, REST API integration, and Network Programming.
+        </p>
+
+        <!-- CTA Buttons -->
+        <div class="mt-8 flex flex-wrap items-center gap-3.5">
+          <a
+            href="#projects"
+            class="inline-flex items-center gap-2 px-5 py-3 rounded-xl text-sm font-semibold bg-sky-600 hover:bg-sky-500 text-white shadow-lg shadow-sky-600/20 transition-all"
+          >
+            <span>View Projects</span>
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"></path>
+            </svg>
+          </a>
+
+          <a
+            href="https://github.com/AbedAlrahmanBadriah"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="inline-flex items-center gap-2 px-5 py-3 rounded-xl text-sm font-semibold border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-800 dark:text-slate-200 hover:border-sky-500 dark:hover:border-sky-400 transition-all"
+          >
+            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+              <path fill-rule="evenodd" clip-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"></path>
+            </svg>
+            <span>GitHub Profile</span>
+          </a>
+
+          <a
+            href="#contact"
+            class="inline-flex items-center gap-2 px-5 py-3 rounded-xl text-sm font-semibold text-slate-600 dark:text-slate-300 hover:text-sky-600 dark:hover:text-sky-400 transition-colors"
+          >
+            <span>Contact Me</span>
+            <span aria-hidden="true">&rarr;</span>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== 2. FEATURED SOFTWARE PROJECTS ==================== -->
+    <section id="projects" class="py-16 sm:py-20 border-b border-slate-200/80 dark:border-slate-800/80">
+      <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-10">
+        <div>
+          <p class="font-mono text-xs uppercase tracking-widest text-sky-600 dark:text-sky-400 font-semibold">Featured Work</p>
+          <h2 class="mt-1 text-2xl sm:text-3xl font-bold tracking-tight text-slate-900 dark:text-white">Software Projects</h2>
+        </div>
+        <p class="text-sm text-slate-500 dark:text-slate-400 font-mono">
+          Interactive previews &mdash; click inside each mockup to test
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+
+        <!-- PROJECT CARD 1: WEATHERAPP -->
+        <article class="flex flex-col rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/70 shadow-sm overflow-hidden">
+          <!-- Interactive Dear ImGui Dark Window Simulation -->
+          <div class="p-4 sm:p-5 bg-slate-900 border-b border-slate-800">
+            <div class="rounded-xl overflow-hidden border border-slate-700/80 bg-[#1a1d24] text-slate-100 shadow-inner font-mono">
+              <!-- ImGui Title Bar -->
+              <div class="flex items-center justify-between px-3 py-2 bg-[#232936] border-b border-slate-700/80 text-xs">
+                <div class="flex items-center gap-2">
+                  <span class="w-2.5 h-2.5 rounded-full bg-sky-400 inline-block"></span>
+                  <span class="font-semibold text-slate-200">Weather Application (Dear ImGui + DX9)</span>
+                </div>
+                <span id="weather-thread-status" class="text-[11px] text-emerald-400">std::thread: idle</span>
+              </div>
+
+              <!-- Interactive City Selector & Favorites Bar -->
+              <div class="p-3.5 space-y-3">
+                <div class="flex flex-wrap items-center justify-between gap-2">
+                  <div class="flex items-center gap-1.5" role="group" aria-label="Select City">
+                    <button type="button" data-city="Jerusalem" class="weather-city-btn px-2.5 py-1 rounded text-xs font-semibold bg-sky-600 text-white transition-colors">Jerusalem</button>
+                    <button type="button" data-city="Tel Aviv" class="weather-city-btn px-2.5 py-1 rounded text-xs font-semibold bg-slate-800 text-slate-300 hover:bg-slate-700 transition-colors">Tel Aviv</button>
+                    <button type="button" data-city="Haifa" class="weather-city-btn px-2.5 py-1 rounded text-xs font-semibold bg-slate-800 text-slate-300 hover:bg-slate-700 transition-colors">Haifa</button>
+                  </div>
+                  <button
+                    id="weather-fav-btn"
+                    type="button"
+                    class="px-2.5 py-1 rounded text-xs font-semibold border border-amber-500/40 bg-amber-500/10 text-amber-300 hover:bg-amber-500/20 transition-colors"
+                  >
+                    &#9733; Favorite
+                  </button>
+                </div>
+
+                <!-- Weather Readout Display -->
+                <div class="rounded-lg bg-[#13161c] border border-slate-800 p-3.5 flex items-center justify-between">
+                  <div>
+                    <div id="w-city" class="text-base font-bold text-white">Jerusalem</div>
+                    <div id="w-cond" class="text-xs text-sky-400 mt-0.5">Clear</div>
+                    <div class="mt-2.5 flex flex-wrap gap-3 text-[11px] text-slate-400">
+                      <span>Humidity: <strong id="w-hum" class="text-slate-200">45%</strong></span>
+                      <span>Wind: <strong id="w-wind" class="text-slate-200">3.4 m/s</strong></span>
+                    </div>
+                  </div>
+                  <div class="text-right">
+                    <div id="w-temp" class="text-3xl sm:text-4xl font-bold text-white tracking-tight">22&deg;C</div>
+                    <div class="text-[10px] text-slate-500 mt-1">OpenWeatherMap JSON</div>
+                  </div>
+                </div>
+
+                <!-- Mini Favorites Bar -->
+                <div class="flex items-center justify-between text-[11px] text-slate-400 pt-0.5">
+                  <span>Saved Favorites (<code class="text-sky-400">std::vector</code>):</span>
+                  <span id="w-fav-list" class="text-slate-200 font-medium">Jerusalem</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Project Details Body -->
+          <div class="p-6 flex-1 flex flex-col justify-between">
+            <div>
+              <div class="flex items-start justify-between gap-4">
+                <h3 class="text-xl font-bold text-slate-900 dark:text-white">
+                  WeatherApp — Real-Time Desktop Weather Client
+                </h3>
+                <a
+                  href="https://github.com/AbedAlrahmanBadriah/WeatherApp"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="WeatherApp GitHub Repository"
+                  class="shrink-0 p-2 rounded-lg border border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-300 hover:text-sky-600 dark:hover:text-sky-400 hover:border-sky-500 transition-colors"
+                >
+                  <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                    <path fill-rule="evenodd" clip-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"></path>
+                  </svg>
+                </a>
+              </div>
+
+              <!-- Tech Tags -->
+              <div class="mt-3 flex flex-wrap gap-1.5">
+                <span class="px-2.5 py-0.5 rounded-md text-xs font-mono font-medium bg-sky-500/10 text-sky-700 dark:text-sky-300 border border-sky-500/20">C++</span>
+                <span class="px-2.5 py-0.5 rounded-md text-xs font-mono font-medium bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300">Dear ImGui</span>
+                <span class="px-2.5 py-0.5 rounded-md text-xs font-mono font-medium bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300">DirectX 9</span>
+                <span class="px-2.5 py-0.5 rounded-md text-xs font-mono font-medium bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300">REST API</span>
+                <span class="px-2.5 py-0.5 rounded-md text-xs font-mono font-medium bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300">Multithreading</span>
+                <span class="px-2.5 py-0.5 rounded-md text-xs font-mono font-medium bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300">STL</span>
+              </div>
+
+              <!-- Bullet Points -->
+              <ul class="mt-4 space-y-2.5 text-sm text-slate-600 dark:text-slate-300 list-disc pl-4 leading-relaxed">
+                <li>Extended a C++ / Dear ImGui desktop application framework by designing and implementing the custom weather interface, REST API integration, and state management features.</li>
+                <li>Connected the application to the OpenWeatherMap API using <strong class="text-slate-900 dark:text-slate-100">cpp-httplib</strong> and <strong class="text-slate-900 dark:text-slate-100">nlohmann/json</strong>, offloading HTTP requests to background threads (<code class="font-mono text-xs text-sky-600 dark:text-sky-400">std::thread</code>, <code class="font-mono text-xs text-sky-600 dark:text-sky-400">std::atomic</code>) to keep the UI responsive during live data fetches.</li>
+                <li>Built interactive GUI views for city search, live meteorological metrics, and a dynamic favorites list powered by STL algorithms (<code class="font-mono text-xs text-sky-600 dark:text-sky-400">std::find_if</code>, <code class="font-mono text-xs text-sky-600 dark:text-sky-400">std::remove_if</code>).</li>
+              </ul>
+            </div>
+
+            <div class="mt-6 pt-4 border-t border-slate-100 dark:border-slate-800 flex items-center justify-between">
+              <a
+                href="https://github.com/AbedAlrahmanBadriah/WeatherApp"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="inline-flex items-center gap-1.5 text-sm font-semibold text-sky-600 dark:text-sky-400 hover:underline"
+              >
+                <span>View Source on GitHub</span>
+                <span aria-hidden="true">&nearr;</span>
+              </a>
+              <span class="text-xs font-mono text-slate-400">Course Final Project</span>
+            </div>
+          </div>
+        </article>
+
+        <!-- PROJECT CARD 2: DIGGER -->
+        <article class="flex flex-col rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/70 shadow-sm overflow-hidden">
+          <!-- Interactive Console ASCII Digger Game Simulation -->
+          <div class="p-4 sm:p-5 bg-slate-900 border-b border-slate-800">
+            <div class="rounded-xl overflow-hidden border border-slate-700/80 bg-[#0d1117] text-slate-100 shadow-inner font-mono">
+              <!-- Console Title Bar -->
+              <div class="flex items-center justify-between px-3 py-2 bg-[#161b22] border-b border-slate-800 text-xs">
+                <div class="flex items-center gap-1.5">
+                  <span class="w-2.5 h-2.5 rounded-full bg-rose-500/80"></span>
+                  <span class="w-2.5 h-2.5 rounded-full bg-amber-400/80"></span>
+                  <span class="w-2.5 h-2.5 rounded-full bg-emerald-500/80"></span>
+                  <span class="ml-1.5 text-slate-300 font-semibold">digger.exe &mdash; Playable Mini Demo</span>
+                </div>
+                <button
+                  id="digger-reset-btn"
+                  type="button"
+                  class="px-2 py-0.5 rounded bg-slate-800 hover:bg-slate-700 text-[11px] text-sky-400 transition-colors"
+                >
+                  Reset Board
+                </button>
+              </div>
+
+              <!-- Game Board & Controls -->
+              <div class="p-3.5 flex flex-col sm:flex-row items-center justify-between gap-4">
+                <!-- ASCII Grid -->
+                <div class="flex flex-col items-center">
+                  <div
+                    id="digger-board"
+                    tabindex="0"
+                    aria-label="Interactive Digger ASCII Game Board"
+                    class="select-none leading-none text-sm sm:text-base tracking-[0.22em] bg-black/60 border border-slate-800 rounded-lg p-2.5 focus:outline-none focus:border-sky-500"
+                  ></div>
+                  <div id="digger-status" class="mt-2 text-[11px] text-slate-300">
+                    Score: <span class="text-amber-400 font-bold">0</span> | Lives: <span class="text-rose-400 font-bold">3</span> | Stones: <span class="text-sky-400 font-bold">2</span>
+                  </div>
+                </div>
+
+                <!-- On-Screen D-Pad + Legend -->
+                <div class="flex flex-col items-center gap-2.5">
+                  <div class="grid grid-cols-3 gap-1 w-28">
+                    <div></div>
+                    <button type="button" data-dir="up" aria-label="Move Up" class="digger-btn h-8 rounded bg-slate-800 hover:bg-sky-600 active:scale-95 text-xs font-bold text-white transition">&uarr;</button>
+                    <div></div>
+                    <button type="button" data-dir="left" aria-label="Move Left" class="digger-btn h-8 rounded bg-slate-800 hover:bg-sky-600 active:scale-95 text-xs font-bold text-white transition">&larr;</button>
+                    <button type="button" data-dir="wait" aria-label="Skip Turn" class="digger-btn h-8 rounded bg-slate-800/70 hover:bg-slate-700 active:scale-95 text-[10px] text-slate-300 transition">WAIT</button>
+                    <button type="button" data-dir="right" aria-label="Move Right" class="digger-btn h-8 rounded bg-slate-800 hover:bg-sky-600 active:scale-95 text-xs font-bold text-white transition">&rarr;</button>
+                    <div></div>
+                    <button type="button" data-dir="down" aria-label="Move Down" class="digger-btn h-8 rounded bg-slate-800 hover:bg-sky-600 active:scale-95 text-xs font-bold text-white transition">&darr;</button>
+                    <div></div>
+                  </div>
+                  <div class="text-[10px] text-slate-400 text-center leading-tight">
+                    <span class="text-emerald-400 font-bold">/</span> Digger &nbsp;
+                    <span class="text-sky-400 font-bold">D</span> Diamond<br />
+                    <span class="text-amber-400 font-bold">@</span> Stone &nbsp;
+                    <span class="text-rose-400 font-bold">!</span> Guard AI
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Project Details Body -->
+          <div class="p-6 flex-1 flex flex-col justify-between">
+            <div>
+              <div class="flex items-start justify-between gap-4">
+                <h3 class="text-xl font-bold text-slate-900 dark:text-white">
+                  Digger — Turn-Based Console Strategy Game
+                </h3>
+                <a
+                  href="https://github.com/AbedAlrahmanBadriah/oop1_ex02"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="Digger GitHub Repository"
+                  class="shrink-0 p-2 rounded-lg border border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-300 hover:text-sky-600 dark:hover:text-sky-400 hover:border-sky-500 transition-colors"
+                >
+                  <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                    <path fill-rule="evenodd" clip-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"></path>
+                  </svg>
+                </a>
+              </div>
+
+              <!-- Tech Tags -->
+              <div class="mt-3 flex flex-wrap gap-1.5">
+                <span class="px-2.5 py-0.5 rounded-md text-xs font-mono font-medium bg-sky-500/10 text-sky-700 dark:text-sky-300 border border-sky-500/20">C++</span>
+                <span class="px-2.5 py-0.5 rounded-md text-xs font-mono font-medium bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300">OOP</span>
+                <span class="px-2.5 py-0.5 rounded-md text-xs font-mono font-medium bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300">STL</span>
+                <span class="px-2.5 py-0.5 rounded-md text-xs font-mono font-medium bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300">CMake</span>
+                <span class="px-2.5 py-0.5 rounded-md text-xs font-mono font-medium bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300">Greedy AI</span>
+              </div>
+
+              <!-- Bullet Points -->
+              <ul class="mt-4 space-y-2.5 text-sm text-slate-600 dark:text-slate-300 list-disc pl-4 leading-relaxed">
+                <li>Architected a multi-class C++ game engine enforcing strict separation of concerns across <code class="font-mono text-xs text-sky-600 dark:text-sky-400">Controller</code>, <code class="font-mono text-xs text-sky-600 dark:text-sky-400">Board</code>, <code class="font-mono text-xs text-sky-600 dark:text-sky-400">Digger</code>, and <code class="font-mono text-xs text-sky-600 dark:text-sky-400">Guard</code> classes with one-directional dependencies and <code class="font-mono text-xs text-sky-600 dark:text-sky-400">const</code>-correct board access.</li>
+                <li>Implemented dynamic level parsing and input validation from external configuration files (<code class="font-mono text-xs text-sky-600 dark:text-sky-400">Board.txt</code>), managing 2D grid state (<code class="font-mono text-xs text-sky-600 dark:text-sky-400">std::vector&lt;std::vector&lt;char&gt;&gt;</code>), resource allowances, and state persistence across life-loss resets.</li>
+                <li>Engineered a deterministic greedy chase algorithm for enemy AI using Manhattan-distance axis prioritization, and designed a flicker-free console rendering loop using cursor positioning.</li>
+              </ul>
+            </div>
+
+            <div class="mt-6 pt-4 border-t border-slate-100 dark:border-slate-800 flex items-center justify-between">
+              <a
+                href="https://github.com/AbedAlrahmanBadriah/oop1_ex02"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="inline-flex items-center gap-1.5 text-sm font-semibold text-sky-600 dark:text-sky-400 hover:underline"
+              >
+                <span>View Source on GitHub</span>
+                <span aria-hidden="true">&nearr;</span>
+              </a>
+              <span class="text-xs font-mono text-slate-400">JMC OOP Course</span>
+            </div>
+          </div>
+        </article>
+
+      </div>
+    </section>
+
+    <!-- ==================== 3. TECHNICAL SKILLS & EDUCATION ==================== -->
+    <section id="skills-education" class="py-16 sm:py-20 border-b border-slate-200/80 dark:border-slate-800/80">
+      <div class="mb-10">
+        <p class="font-mono text-xs uppercase tracking-widest text-sky-600 dark:text-sky-400 font-semibold">Background &amp; Stack</p>
+        <h2 class="mt-1 text-2xl sm:text-3xl font-bold tracking-tight text-slate-900 dark:text-white">Technical Skills &amp; Education</h2>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+        <!-- Left Column: Technical Skills (7 cols) -->
+        <div class="lg:col-span-7 space-y-5">
+          <h3 class="text-lg font-bold text-slate-900 dark:text-white flex items-center gap-2">
+            <span class="font-mono text-sky-600 dark:text-sky-400">#</span> Technical Skills
+          </h3>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <!-- Category 1 -->
+            <div class="p-5 rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/60">
+              <h4 class="text-xs font-mono uppercase tracking-wider text-sky-600 dark:text-sky-400 font-semibold mb-3">Programming Languages</h4>
+              <div class="flex flex-wrap gap-2">
+                <span class="px-2.5 py-1 rounded-lg text-xs font-mono font-medium bg-slate-100 dark:bg-slate-800 text-slate-800 dark:text-slate-200">C++</span>
+                <span class="px-2.5 py-1 rounded-lg text-xs font-mono font-medium bg-slate-100 dark:bg-slate-800 text-slate-800 dark:text-slate-200">C</span>
+                <span class="px-2.5 py-1 rounded-lg text-xs font-mono font-medium bg-slate-100 dark:bg-slate-800 text-slate-800 dark:text-slate-200">Java</span>
+                <span class="px-2.5 py-1 rounded-lg text-xs font-mono font-medium bg-slate-100 dark:bg-slate-800 text-slate-800 dark:text-slate-200">JavaScript</span>
+                <span class="px-2.5 py-1 rounded-lg text-xs font-mono font-medium bg-slate-100 dark:bg-slate-800 text-slate-800 dark:text-slate-200">HTML5</span>
+                <span class="px-2.5 py-1 rounded-lg text-xs font-mono font-medium bg-slate-100 dark:bg-slate-800 text-slate-800 dark:text-slate-200">CSS3</span>
+              </div>
+            </div>
+
+            <!-- Category 2 -->
+            <div class="p-5 rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/60">
+              <h4 class="text-xs font-mono uppercase tracking-wider text-sky-600 dark:text-sky-400 font-semibold mb-3">Libraries &amp; Frameworks</h4>
+              <div class="flex flex-wrap gap-2">
+                <span class="px-2.5 py-1 rounded-lg text-xs font-mono font-medium bg-slate-100 dark:bg-slate-800 text-slate-800 dark:text-slate-200">C++ STL</span>
+                <span class="px-2.5 py-1 rounded-lg text-xs font-mono font-medium bg-slate-100 dark:bg-slate-800 text-slate-800 dark:text-slate-200">Dear ImGui</span>
+                <span class="px-2.5 py-1 rounded-lg text-xs font-mono font-medium bg-slate-100 dark:bg-slate-800 text-slate-800 dark:text-slate-200">DirectX 9</span>
+                <span class="px-2.5 py-1 rounded-lg text-xs font-mono font-medium bg-slate-100 dark:bg-slate-800 text-slate-800 dark:text-slate-200">Win32 API</span>
+                <span class="px-2.5 py-1 rounded-lg text-xs font-mono font-medium bg-slate-100 dark:bg-slate-800 text-slate-800 dark:text-slate-200">cpp-httplib</span>
+                <span class="px-2.5 py-1 rounded-lg text-xs font-mono font-medium bg-slate-100 dark:bg-slate-800 text-slate-800 dark:text-slate-200">nlohmann/json</span>
+              </div>
+            </div>
+
+            <!-- Category 3 -->
+            <div class="p-5 rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/60">
+              <h4 class="text-xs font-mono uppercase tracking-wider text-sky-600 dark:text-sky-400 font-semibold mb-3">Core CS Concepts</h4>
+              <div class="flex flex-wrap gap-2">
+                <span class="px-2.5 py-1 rounded-lg text-xs font-mono font-medium bg-slate-100 dark:bg-slate-800 text-slate-800 dark:text-slate-200">Object-Oriented Design (OOP)</span>
+                <span class="px-2.5 py-1 rounded-lg text-xs font-mono font-medium bg-slate-100 dark:bg-slate-800 text-slate-800 dark:text-slate-200">Multithreading (std::thread / atomic)</span>
+                <span class="px-2.5 py-1 rounded-lg text-xs font-mono font-medium bg-slate-100 dark:bg-slate-800 text-slate-800 dark:text-slate-200">REST APIs &amp; JSON Parsing</span>
+                <span class="px-2.5 py-1 rounded-lg text-xs font-mono font-medium bg-slate-100 dark:bg-slate-800 text-slate-800 dark:text-slate-200">Data Structures</span>
+                <span class="px-2.5 py-1 rounded-lg text-xs font-mono font-medium bg-slate-100 dark:bg-slate-800 text-slate-800 dark:text-slate-200">Network &amp; Socket Programming</span>
+                <span class="px-2.5 py-1 rounded-lg text-xs font-mono font-medium bg-slate-100 dark:bg-slate-800 text-slate-800 dark:text-slate-200">Memory Management &amp; Pointers</span>
+              </div>
+            </div>
+
+            <!-- Category 4 -->
+            <div class="p-5 rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/60">
+              <h4 class="text-xs font-mono uppercase tracking-wider text-sky-600 dark:text-sky-400 font-semibold mb-3">Tools &amp; Environments</h4>
+              <div class="flex flex-wrap gap-2">
+                <span class="px-2.5 py-1 rounded-lg text-xs font-mono font-medium bg-slate-100 dark:bg-slate-800 text-slate-800 dark:text-slate-200">CMake</span>
+                <span class="px-2.5 py-1 rounded-lg text-xs font-mono font-medium bg-slate-100 dark:bg-slate-800 text-slate-800 dark:text-slate-200">Git &amp; GitHub</span>
+                <span class="px-2.5 py-1 rounded-lg text-xs font-mono font-medium bg-slate-100 dark:bg-slate-800 text-slate-800 dark:text-slate-200">Linux / UNIX</span>
+                <span class="px-2.5 py-1 rounded-lg text-xs font-mono font-medium bg-slate-100 dark:bg-slate-800 text-slate-800 dark:text-slate-200">Visual Studio</span>
+                <span class="px-2.5 py-1 rounded-lg text-xs font-mono font-medium bg-slate-100 dark:bg-slate-800 text-slate-800 dark:text-slate-200">CLion</span>
+                <span class="px-2.5 py-1 rounded-lg text-xs font-mono font-medium bg-slate-100 dark:bg-slate-800 text-slate-800 dark:text-slate-200">Debugging</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Languages Badge Bar -->
+          <div class="p-5 rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/60">
+            <h4 class="text-xs font-mono uppercase tracking-wider text-sky-600 dark:text-sky-400 font-semibold mb-3">Spoken &amp; Written Languages</h4>
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 text-sm">
+              <div class="p-3 rounded-xl bg-slate-50 dark:bg-slate-800/70 border border-slate-200/70 dark:border-slate-700/60">
+                <div class="font-bold text-slate-900 dark:text-white">Arabic</div>
+                <div class="text-xs text-slate-500 dark:text-slate-400 mt-0.5">Native</div>
+              </div>
+              <div class="p-3 rounded-xl bg-slate-50 dark:bg-slate-800/70 border border-slate-200/70 dark:border-slate-700/60">
+                <div class="font-bold text-slate-900 dark:text-white">English</div>
+                <div class="text-xs text-slate-500 dark:text-slate-400 mt-0.5">Professional Working Proficiency</div>
+              </div>
+              <div class="p-3 rounded-xl bg-slate-50 dark:bg-slate-800/70 border border-slate-200/70 dark:border-slate-700/60">
+                <div class="font-bold text-slate-900 dark:text-white">Hebrew</div>
+                <div class="text-xs text-slate-500 dark:text-slate-400 mt-0.5">Professional Working Proficiency</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right Column: Education Timeline (5 cols) -->
+        <div class="lg:col-span-5 space-y-5">
+          <h3 class="text-lg font-bold text-slate-900 dark:text-white flex items-center gap-2">
+            <span class="font-mono text-sky-600 dark:text-sky-400">#</span> Education &amp; Coursework
+          </h3>
+
+          <div class="relative pl-6 border-l-2 border-slate-200 dark:border-slate-800 space-y-8">
+            <!-- JMC -->
+            <div class="relative">
+              <span class="absolute -left-[31px] top-1.5 w-3.5 h-3.5 rounded-full bg-sky-500 ring-4 ring-slate-50 dark:ring-slate-950"></span>
+              <div class="p-5 rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/60">
+                <div class="flex flex-wrap items-center justify-between gap-2">
+                  <span class="text-xs font-mono font-semibold px-2.5 py-0.5 rounded-full bg-sky-500/10 text-sky-700 dark:text-sky-300">2nd Year &bull; Expected July 2028</span>
+                  <span class="text-xs text-slate-500 dark:text-slate-400">Jerusalem, Israel</span>
+                </div>
+                <h4 class="mt-2.5 text-base font-bold text-slate-900 dark:text-white">Jerusalem Multidisciplinary College (JMC)</h4>
+                <p class="text-sm font-medium text-slate-600 dark:text-slate-300">B.Sc. in Computer Science</p>
+                <p class="mt-3 text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
+                  <strong class="text-slate-800 dark:text-slate-200">Coursework:</strong> OOP in C++, C Programming, Computer Architecture, Linear Algebra 1 &amp; 2, Calculus 1, Discrete Mathematics.
+                </p>
+              </div>
+            </div>
+
+            <!-- Azrieli -->
+            <div class="relative">
+              <span class="absolute -left-[31px] top-1.5 w-3.5 h-3.5 rounded-full bg-slate-400 dark:bg-slate-600 ring-4 ring-slate-50 dark:ring-slate-950"></span>
+              <div class="p-5 rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/60">
+                <div class="flex flex-wrap items-center justify-between gap-2">
+                  <span class="text-xs font-mono font-semibold px-2.5 py-0.5 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300">2022 &ndash; 2025</span>
+                  <span class="text-xs text-slate-500 dark:text-slate-400">Jerusalem, Israel</span>
+                </div>
+                <h4 class="mt-2.5 text-base font-bold text-slate-900 dark:text-white">Azrieli College of Engineering (JCE)</h4>
+                <p class="text-sm font-medium text-slate-600 dark:text-slate-300">Computer Science &amp; Software Engineering Coursework</p>
+                <p class="mt-3 text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
+                  <strong class="text-slate-800 dark:text-slate-200">Completed Coursework:</strong> Data Structures, OOP &amp; Advanced OOP in Java, Network Applications in C, Internet Programming (HTML/CSS/JS), Computer Architecture, Mathematical Logic, Discrete Math 1 &amp; 2, Calculus 1 &amp; 2.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== 4. CONTACT SECTION ==================== -->
+    <section id="contact" class="py-16 sm:py-20">
+      <div class="rounded-3xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/80 p-6 sm:p-10 shadow-sm">
+        <div class="max-w-2xl">
+          <p class="font-mono text-xs uppercase tracking-widest text-sky-600 dark:text-sky-400 font-semibold">Get In Touch</p>
+          <h2 class="mt-1 text-2xl sm:text-3xl font-bold tracking-tight text-slate-900 dark:text-white">Let&apos;s Connect</h2>
+          <p class="mt-3 text-sm sm:text-base text-slate-600 dark:text-slate-300 leading-relaxed">
+            Currently seeking a <strong class="text-slate-900 dark:text-white">Software Development / C++ Student Position (משרת סטודנט)</strong> in Jerusalem or hybrid/remote. Feel free to reach out directly via email, phone, or GitHub.
+          </p>
+        </div>
+
+        <div class="mt-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+          <!-- Email Card with Copy -->
+          <div class="p-4 rounded-2xl border border-slate-200 dark:border-slate-800 bg-slate-50/70 dark:bg-slate-950/60 flex flex-col justify-between gap-3">
+            <div>
+              <span class="text-xs font-mono text-slate-500 dark:text-slate-400">Email</span>
+              <a href="mailto:abedbadriah2002@gmail.com" class="mt-1 block text-sm font-semibold text-slate-900 dark:text-white hover:text-sky-600 dark:hover:text-sky-400 break-all">
+                abedbadriah2002@gmail.com
+              </a>
+            </div>
+            <button
+              type="button"
+              data-copy="abedbadriah2002@gmail.com"
+              data-label="Email address"
+              class="copy-btn self-start inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-mono font-medium bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-300 hover:border-sky-500 hover:text-sky-600 dark:hover:text-sky-400 transition-colors"
+            >
+              <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+              </svg>
+              <span>Copy Email</span>
+            </button>
+          </div>
+
+          <!-- Phone Card with Copy -->
+          <div class="p-4 rounded-2xl border border-slate-200 dark:border-slate-800 bg-slate-50/70 dark:bg-slate-950/60 flex flex-col justify-between gap-3">
+            <div>
+              <span class="text-xs font-mono text-slate-500 dark:text-slate-400">Phone</span>
+              <a href="tel:+972533056745" class="mt-1 block text-sm font-semibold text-slate-900 dark:text-white hover:text-sky-600 dark:hover:text-sky-400">
+                053-3056745
+              </a>
+            </div>
+            <button
+              type="button"
+              data-copy="053-3056745"
+              data-label="Phone number"
+              class="copy-btn self-start inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-mono font-medium bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-300 hover:border-sky-500 hover:text-sky-600 dark:hover:text-sky-400 transition-colors"
+            >
+              <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+              </svg>
+              <span>Copy Phone</span>
+            </button>
+          </div>
+
+          <!-- GitHub Card -->
+          <div class="p-4 rounded-2xl border border-slate-200 dark:border-slate-800 bg-slate-50/70 dark:bg-slate-950/60 flex flex-col justify-between gap-3">
+            <div>
+              <span class="text-xs font-mono text-slate-500 dark:text-slate-400">GitHub</span>
+              <a
+                href="https://github.com/AbedAlrahmanBadriah"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="mt-1 block text-sm font-semibold text-slate-900 dark:text-white hover:text-sky-600 dark:hover:text-sky-400 break-all"
+              >
+                github.com/AbedAlrahmanBadriah
+              </a>
+            </div>
+            <a
+              href="https://github.com/AbedAlrahmanBadriah"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="self-start inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-mono font-medium bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-300 hover:border-sky-500 hover:text-sky-600 dark:hover:text-sky-400 transition-colors"
+            >
+              <span>Open Profile &nearr;</span>
+            </a>
+          </div>
+
+          <!-- Location Card -->
+          <div class="p-4 rounded-2xl border border-slate-200 dark:border-slate-800 bg-slate-50/70 dark:bg-slate-950/60 flex flex-col justify-between gap-3">
+            <div>
+              <span class="text-xs font-mono text-slate-500 dark:text-slate-400">Location</span>
+              <p class="mt-1 text-sm font-semibold text-slate-900 dark:text-white">Jerusalem, Israel</p>
+            </div>
+            <span class="self-start inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-mono text-emerald-700 dark:text-emerald-400 bg-emerald-500/10 border border-emerald-500/20">
+              Available Immediately
+            </span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="relative z-10 border-t border-slate-200 dark:border-slate-800/80 py-8">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-500 dark:text-slate-400 font-mono">
+      <p>&copy; <span id="year"></span> Abed Alrahman Badriah. All rights reserved.</p>
+      <p>Built with clean HTML5, CSS3 &amp; Vanilla JavaScript.</p>
+    </div>
+  </footer>
+
+  <!-- Toast Notification for Clipboard Copy -->
+  <div
+    id="toast"
+    role="status"
+    aria-live="polite"
+    class="fixed bottom-5 right-5 z-50 pointer-events-none opacity-0 translate-y-2 transition-all duration-200 px-4 py-2.5 rounded-xl bg-slate-900 dark:bg-sky-600 text-white text-xs font-mono font-medium shadow-xl border border-slate-700 dark:border-sky-400/40"
+  >
+    Copied to clipboard!
+  </div>
+
+  <!-- Interactive JavaScript -->
+  <script>
+    (function () {
+      // 1. Dynamic Year
+      document.getElementById('year').textContent = new Date().getFullYear();
+
+      // 2. Dark / Light Theme Toggle
+      const htmlEl = document.documentElement;
+      const gridBg = document.getElementById('grid-bg');
+      const themeToggleBtn = document.getElementById('theme-toggle');
+
+      function applyTheme(isDark) {
+        if (isDark) {
+          htmlEl.classList.add('dark');
+          gridBg.classList.remove('bg-grid-light');
+          gridBg.classList.add('bg-grid-dark');
+        } else {
+          htmlEl.classList.remove('dark');
+          gridBg.classList.remove('bg-grid-dark');
+          gridBg.classList.add('bg-grid-light');
+        }
+      }
+
+      themeToggleBtn.addEventListener('click', () => {
+        const nextIsDark = !htmlEl.classList.contains('dark');
+        applyTheme(nextIsDark);
+      });
+
+      // 3. Mobile Navigation Toggle
+      const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+      const mobileMenu = document.getElementById('mobile-menu');
+      mobileMenuBtn.addEventListener('click', () => {
+        mobileMenu.classList.toggle('hidden');
+      });
+      document.querySelectorAll('.mobile-nav-link').forEach((link) => {
+        link.addEventListener('click', () => mobileMenu.classList.add('hidden'));
+      });
+
+      // 4. Interactive WeatherApp Mockup
+      const weatherDatabase = {
+        'Jerusalem': { temp: '22°C', cond: 'Clear', hum: '45%', wind: '3.4 m/s' },
+        'Tel Aviv':  { temp: '25°C', cond: 'Sunny / Breezy', hum: '62%', wind: '5.1 m/s' },
+        'Haifa':     { temp: '23°C', cond: 'Partly Cloudy', hum: '58%', wind: '4.2 m/s' }
+      };
+
+      let currentCity = 'Jerusalem';
+      const favorites = new Set(['Jerusalem']);
+
+      const wCityEl = document.getElementById('w-city');
+      const wCondEl = document.getElementById('w-cond');
+      const wTempEl = document.getElementById('w-temp');
+      const wHumEl = document.getElementById('w-hum');
+      const wWindEl = document.getElementById('w-wind');
+      const wThreadEl = document.getElementById('weather-thread-status');
+      const wFavBtn = document.getElementById('weather-fav-btn');
+      const wFavListEl = document.getElementById('w-fav-list');
+      const cityButtons = document.querySelectorAll('.weather-city-btn');
+
+      function updateFavUI() {
+        const isFav = favorites.has(currentCity);
+        wFavBtn.innerHTML = isFav ? '&#9733; Favorited' : '&#9734; Favorite';
+        wFavListEl.textContent = favorites.size > 0 ? Array.from(favorites).join(', ') : 'None';
+      }
+
+      cityButtons.forEach((btn) => {
+        btn.addEventListener('click', () => {
+          const selected = btn.getAttribute('data-city');
+          if (!weatherDatabase[selected]) return;
+          currentCity = selected;
+
+          // Highlight active city button
+          cityButtons.forEach((b) => {
+            b.classList.remove('bg-sky-600', 'text-white');
+            b.classList.add('bg-slate-800', 'text-slate-300');
+          });
+          btn.classList.remove('bg-slate-800', 'text-slate-300');
+          btn.classList.add('bg-sky-600', 'text-white');
+
+          // Simulate background thread fetch
+          wThreadEl.textContent = 'std::thread: fetching...';
+          wThreadEl.classList.replace('text-emerald-400', 'text-amber-400');
+
+          setTimeout(() => {
+            const info = weatherDatabase[selected];
+            wCityEl.textContent = selected;
+            wCondEl.textContent = info.cond;
+            wTempEl.textContent = info.temp;
+            wHumEl.textContent = info.hum;
+            wWindEl.textContent = info.wind;
+            wThreadEl.textContent = 'std::thread: idle (200 OK)';
+            wThreadEl.classList.replace('text-amber-400', 'text-emerald-400');
+            updateFavUI();
+          }, 160);
+        });
+      });
+
+      wFavBtn.addEventListener('click', () => {
+        if (favorites.has(currentCity)) {
+          favorites.delete(currentCity);
+        } else {
+          favorites.add(currentCity);
+        }
+        updateFavUI();
+      });
+
+      // 5. Interactive Digger Console Strategy Game Mini-Demo
+      const initialMap = [
+        '##########',
+        '#/  D  @ #',
+        '# ## ### #',
+        '# D   !  #',
+        '#  @  D  #',
+        '##########'
+      ];
+
+      let grid = [];
+      let diggerPos = { r: 1, c: 1 };
+      let guardPos = { r: 3, c: 6 };
+      let score = 0;
+      let lives = 3;
+      let stonesLeft = 2;
+      let gameBanner = '';
+
+      const boardEl = document.getElementById('digger-board');
+      const statusEl = document.getElementById('digger-status');
+
+      function initDigger() {
+        grid = initialMap.map((row) => row.split(''));
+        for (let r = 0; r < grid.length; r++) {
+          for (let c = 0; c < grid[r].length; c++) {
+            if (grid[r][c] === '/') {
+              diggerPos = { r, c };
+              grid[r][c] = ' ';
+            } else if (grid[r][c] === '!') {
+              guardPos = { r, c };
+              grid[r][c] = ' ';
+            }
+          }
+        }
+        score = 0;
+        lives = 3;
+        stonesLeft = 2;
+        gameBanner = '';
+        renderDigger();
+      }
+
+      function countDiamonds() {
+        let count = 0;
+        for (const row of grid) {
+          for (const cell of row) {
+            if (cell === 'D') count++;
+          }
+        }
+        return count;
+      }
+
+      function renderDigger() {
+        let html = '';
+        for (let r = 0; r < grid.length; r++) {
+          let line = '';
+          for (let c = 0; c < grid[r].length; c++) {
+            if (r === diggerPos.r && c === diggerPos.c) {
+              line += '<span class="text-emerald-400 font-bold">/</span>';
+            } else if (r === guardPos.r && c === guardPos.c) {
+              line += '<span class="text-rose-400 font-bold">!</span>';
+            } else {
+              const ch = grid[r][c];
+              if (ch === '#') line += '<span class="text-slate-600">#</span>';
+              else if (ch === 'D') line += '<span class="text-sky-400 font-bold">D</span>';
+              else if (ch === '@') line += '<span class="text-amber-400 font-bold">@</span>';
+              else line += '<span class="text-slate-800">&middot;</span>';
+            }
+          }
+          html += `<div>${line}</div>`;
+        }
+        boardEl.innerHTML = html;
+
+        if (gameBanner) {
+          statusEl.innerHTML = `<span class="text-emerald-400 font-semibold">${gameBanner}</span>`;
+        } else {
+          statusEl.innerHTML = `Score: <span class="text-amber-400 font-bold">${score}</span> | Lives: <span class="text-rose-400 font-bold">${lives}</span> | Stones: <span class="text-sky-400 font-bold">${stonesLeft}</span>`;
+        }
+      }
+
+      function moveGuardGreedy() {
+        const dr = diggerPos.r - guardPos.r;
+        const dc = diggerPos.c - guardPos.c;
+        const candidates = [];
+
+        if (Math.abs(dr) >= Math.abs(dc)) {
+          if (dr !== 0) candidates.push({ r: guardPos.r + Math.sign(dr), c: guardPos.c });
+          if (dc !== 0) candidates.push({ r: guardPos.r, c: guardPos.c + Math.sign(dc) });
+        } else {
+          if (dc !== 0) candidates.push({ r: guardPos.r, c: guardPos.c + Math.sign(dc) });
+          if (dr !== 0) candidates.push({ r: guardPos.r + Math.sign(dr), c: guardPos.c });
+        }
+
+        for (const step of candidates) {
+          const tile = grid[step.r]?.[step.c];
+          if (tile && tile !== '#' && tile !== '@') {
+            guardPos = step;
+            break;
+          }
+        }
+      }
+
+      function stepDigger(dir) {
+        if (gameBanner) return;
+
+        let nr = diggerPos.r;
+        let nc = diggerPos.c;
+        if (dir === 'up') nr--;
+        else if (dir === 'down') nr++;
+        else if (dir === 'left') nc--;
+        else if (dir === 'right') nc++;
+
+        const targetTile = grid[nr]?.[nc];
+        if (!targetTile || targetTile === '#') return; // Blocked by wall
+        if (targetTile === '@') {
+          if (stonesLeft <= 0) return; // Blocked by stone
+          stonesLeft--;
+          grid[nr][nc] = ' ';
+        }
+
+        diggerPos = { r: nr, c: nc };
+
+        // Check immediate collision with guard
+        if (diggerPos.r === guardPos.r && diggerPos.c === guardPos.c) {
+          lives--;
+          diggerPos = { r: 1, c: 1 };
+          guardPos = { r: 3, c: 6 };
+          if (lives <= 0) gameBanner = 'Game Over! Click Reset Board.';
+          renderDigger();
+          return;
+        }
+
+        // Eat diamond
+        if (grid[nr][nc] === 'D') {
+          grid[nr][nc] = ' ';
+          score += 15;
+          if (countDiamonds() === 0) {
+            score += 20;
+            gameBanner = `Level Cleared! (+20 Bonus) Score: ${score}`;
+            renderDigger();
+            return;
+          }
+        }
+
+        // Guard turn
+        moveGuardGreedy();
+        if (diggerPos.r === guardPos.r && diggerPos.c === guardPos.c) {
+          lives--;
+          diggerPos = { r: 1, c: 1 };
+          guardPos = { r: 3, c: 6 };
+          if (lives <= 0) gameBanner = 'Game Over! Click Reset Board.';
+        }
+
+        renderDigger();
+      }
+
+      document.querySelectorAll('.digger-btn').forEach((btn) => {
+        btn.addEventListener('click', () => stepDigger(btn.getAttribute('data-dir')));
+      });
+
+      boardEl.addEventListener('keydown', (e) => {
+        const keyMap = {
+          ArrowUp: 'up', w: 'up', W: 'up',
+          ArrowDown: 'down', s: 'down', S: 'down',
+          ArrowLeft: 'left', a: 'left', A: 'left',
+          ArrowRight: 'right', d: 'right', D: 'right',
+          ' ': 'wait'
+        };
+        if (keyMap[e.key]) {
+          e.preventDefault();
+          stepDigger(keyMap[e.key]);
+        }
+      });
+
+      document.getElementById('digger-reset-btn').addEventListener('click', initDigger);
+      initDigger();
+
+      // 6. Clipboard Copy with Toast Notification
+      const toastEl = document.getElementById('toast');
+      let toastTimeout = null;
+
+      function showToast(message) {
+        toastEl.textContent = message;
+        toastEl.classList.remove('opacity-0', 'translate-y-2');
+        toastEl.classList.add('opacity-100', 'translate-y-0');
+        clearTimeout(toastTimeout);
+        toastTimeout = setTimeout(() => {
+          toastEl.classList.remove('opacity-100', 'translate-y-0');
+          toastEl.classList.add('opacity-0', 'translate-y-2');
+        }, 2200);
+      }
+
+      document.querySelectorAll('.copy-btn').forEach((btn) => {
+        btn.addEventListener('click', () => {
+          const text = btn.getAttribute('data-copy');
+          const label = btn.getAttribute('data-label') || 'Text';
+          const tempInput = document.createElement('textarea');
+          tempInput.value = text;
+          tempInput.style.position = 'fixed';
+          tempInput.style.opacity = '0';
+          document.body.appendChild(tempInput);
+          tempInput.select();
+          try {
+            document.execCommand('copy');
+            showToast(`${label} copied: ${text}`);
+          } catch (err) {
+            showToast(`Could not copy ${label}`);
+          }
+          document.body.removeChild(tempInput);
+        });
+      });
+    })();
+  </script>
+</body>
+</html>
